@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+ {% if categories %}
+            <ul>
+                {# Une boucle en twig est définie grâce au mot-clé for #}
+                {% for cat in categories %}
+                    {# Pour afficher l'information d'un tableau ou d'un objet, on utilise le point '.' comme en javascript #}
+                    <li>{{ cat.name }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h2 class="text-danger">Aucune catégorie n'existe pour le moment</h2>
+        {% endif %}
+{% endblock %}

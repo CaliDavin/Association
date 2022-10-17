@@ -1,0 +1,10 @@
+controllers:
+    resource: ../src/Controller/
+    type: attribute
+
+hello: # Nom de la route
+    controller: 'App\Controller\HomeController::hello' # Permet de charger le controller et la méthode indiquée
+    path: '/hello' # Url de chargement de la route
+# bye:
+#     controller: 'App\Controller\HomeController::bye'
+#     path: '/bye'
