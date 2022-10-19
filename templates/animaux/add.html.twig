@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1>Ajout d'un animal</h1>
+    {# 
+    Permet d'inclure un template d'une partie répétée en lui 
+    passant des paramètres grâce au 'with'
+    #}
+    {% include "animaux/_form.html.twig" with {form:form, formSubmit:"Ajouter"} %}
+{% endblock %}
