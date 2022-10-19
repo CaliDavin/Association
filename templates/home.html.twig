@@ -1,28 +1,6 @@
 {% extends "base.html.twig" %}
-{% block title %}
-{# Un commentaire #}
-{# {% %} permet d'utiliser une des fonctions de twig #}
-{# {{}} permet d'afficher une information => echo en PHP #}
+{% block title %}Accueil{% endblock %}
 
-    {% block body %}
-        <pre>
-            {{ dump(categories) }}
-        </pre>
-        {# 
-            Un if ou un for ou un block et d'autres éléments ont toujours leur code entre la balise ouvrante et fermante (end) 
-            exemple => if/endif, for/endfor, block/endblock, ...
-        #}
-        {% if categories %}
-            <ul>
-                {# Une boucle en twig est définie grâce au mot-clé for #}
-                {% for cat in categories %}
-                    {# Pour afficher l'information d'un tableau ou d'un objet, on utilise le point '.' comme en javascript #}
-                    <li>{{ cat.name }}</li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <h2 class="text-danger">Aucune catégorie n'existe pour le moment</h2>
-        {% endif %}
-        
-    {% endblock %}
+{% block body %}
+    <h1>Accueil</h1>
 {% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Animaux{% endblock %}
+
+{% block body %}
+
+
+
+    {% if animaux %}
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Animal</th>
+                <th scope="col">Genre</th>
+                <th scope="col">Âge</th>
+                <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for animal in animaux %}
+                <tr>
+                    <th scope="row">{{animal.name}}</th>
+                    <td>{{animal.type}}</td>
+                    <td>{{animal.genre}}</td>
+                    <td>{{animal.age}}</td>
+                    <td>
+                        <a href="{{ path('show_animaux', {id: animal.id}) }}"></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <h2 class="text-danger">Aucun animal n'existe pour le moment</h2>
+    {% endif %}
+{% endblock %}
