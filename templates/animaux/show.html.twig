@@ -5,9 +5,9 @@
 {% block body %}
 <div class="container-fluid well span6">
 	<div class="row-fluid">
-        <div class="span2" >
-		    <img src="{{animaux.photo}}" class="img-circle" width="500" height="400">
-        </div>
+        {% if animaux.photo %}
+		    <img src="{{asset('assets/img/upload' ~ animaux.photo)}}" alt="{{ animaux.name }}" width="500" height="400">
+        {% endif %}
         
         <div class="span8">
             <h3>{{ animaux.name }}</h3>
