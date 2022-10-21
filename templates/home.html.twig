@@ -27,9 +27,6 @@
                             <td>{{animal.age}}</td>
                             <td>
                                 <a class="btn btn-primary" href="{{ path('show_animaux', {id: animal.id}) }}" title="Voir plus d'info/réservation"><i class="far fa-eye"></i></a>
-                                <a class="btn btn-warning" href="{{ path('update', {id: animal.id}) }}" title="Modifier"><i class="fas fa-wrench"></i></a>
-                                <a class="btn btn-danger" href="{{ path('delete', {id: animal.id}) }}" title="Supprimer"><i class="fas fa-trash"></i></a>
-                                
                             </td>
                         </tr>
                     {% endfor %}
