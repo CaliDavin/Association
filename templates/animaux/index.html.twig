@@ -4,8 +4,10 @@
 
 {% block body %}
 
-
+    {% if is_granted('ROLE_ADMIN') %}
     <a type="button" class="btn btn-primary mb-3 mt-3" href="{{ path('add_animaux') }}"><i class="fas fa-plus"></i> Ajouter un animal</a>
+    {% endif %}
+    
     {% if animaux %}
         <table class="table table-hover">
             <thead>
@@ -26,8 +28,11 @@
                     <td>{{animal.age}}</td>
                     <td>
                         <a class="btn btn-primary" href="{{ path('show_animaux', {id: animal.id}) }}" title="Voir plus d'info/réservation"><i class="far fa-eye"></i></a>
+                        {% if is_granted('ROLE_ADMIN') %}
                         <a class="btn btn-warning" href="{{ path('update', {id: animal.id}) }}" title="Modifier"><i class="fas fa-wrench"></i></a>
                         <a class="btn btn-danger" href="{{ path('delete', {id: animal.id}) }}" title="Supprimer"><i class="fas fa-trash"></i></a>
+                        {% endif %}
+
                         
                     </td>
                 </tr>
