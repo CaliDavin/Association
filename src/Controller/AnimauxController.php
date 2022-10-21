@@ -47,28 +47,7 @@ class AnimauxController extends AbstractController
     public function add(Request $request): Response
     {
         $animaux = new Animal;
-        // $this->createFormBuilder() permet de créer un générateur de formulaire
-        // $form = $this->createFormBuilder($category)
-        //    // On utilise la méthode add pour ajouter des champs à notre formulaire
-        //     ->add('name', TextType::class, [
-        //         'label' => "Nom de la catégorie",
-        //         'attr' => [
-        //             'placeholder' => "Nom de la catégorie"
-        //         ],
-        //         'row_attr' => [
-        //             'class' => 'mb-3 form-floating'
-        //         ]
-        //     ])
-        //     ->add('button', SubmitType::class, [
-        //         'label' => "Ajouter"
-        //     ])
-        //     // La méthode getForm permet de récupérer le formulaire généré
-        //     ->getForm()
-        // ;
         $form = $this->createForm(AnimalType::class, $animaux);
-        // handleRequest() récupère les informations reçues du formulaire
-        // et stockée dans la Request pour les associer à l'entité Category
-        // passée en data du createFormBuilder
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -76,8 +55,6 @@ class AnimauxController extends AbstractController
             if ($picture) {
                 try {
                     $pictureName = md5(uniqid()). '.' . $picture->guessExtension();
-                    // Permet de déplacer l'image dans un dossier d'upload
-                    // move() prend 2 paramètres: le dossier d'upload et le nom du fichier
                     $picture->move(
                         $this->getParameter('upload_dir'),
                         $pictureName

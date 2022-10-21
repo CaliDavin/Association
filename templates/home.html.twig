@@ -2,5 +2,42 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <h1>Accueil</h1>
+    <div class="row">
+        <div class="col-12">
+            <h4>Lutter contre les abandons, contre l’expérimentation animale et les trafics d’animaux, sensibiliser l’opinion, faire évoluer les lois et le statut de l’animal. L'action de la Fondation ne se limite pas aux animaux abandonnés et au territoire français. Notre lutte s'impose partout où les animaux souffrent et ont besoin de reconnaissance.</h4>
+        </div>
+        <div class="col-12 mt-4">
+            {% if animaux %}
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Animal</th>
+                        <th scope="col">Genre</th>
+                        <th scope="col">Âge</th>
+                        <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for animal in animaux %}
+                        <tr>
+                            <th scope="row">{{animal.name}}</th>
+                            <td>{{animal.type}}</td>
+                            <td>{{animal.genre}}</td>
+                            <td>{{animal.age}}</td>
+                            <td>
+                                <a class="btn btn-primary" href="{{ path('show_animaux', {id: animal.id}) }}" title="Voir plus d'info/réservation"><i class="far fa-eye"></i></a>
+                                <a class="btn btn-warning" href="{{ path('update', {id: animal.id}) }}" title="Modifier"><i class="fas fa-wrench"></i></a>
+                                <a class="btn btn-danger" href="{{ path('delete', {id: animal.id}) }}" title="Supprimer"><i class="fas fa-trash"></i></a>
+                                
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <h2 class="text-danger">Aucun animal n'existe pour le moment</h2>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
