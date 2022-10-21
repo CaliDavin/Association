@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use DateTime;
+use App\Entity\User;
 use App\Entity\Animal;
 use App\Form\AnimalType;
 use App\Service\UploadFile;
 use App\Repository\AnimalRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,7 +44,28 @@ class AnimauxController extends AbstractController
             'animaux' => $animaux
         ]);
     }
+    #[Route('/animaux/{id}/reserver', name:'user_add', methods:['GET', 'POST'], requirements:['id' => "\d+"]) ]
+    public function addReservation(int $id, Request $request, EntityManagerInterface $manager): Response
+    {
+        $user = new User;
+        $animal = $this->manager->getRepository(Animal::class)->findByOne($id);
+        $form = $this->createForm(UserType::class, $user);
+        
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->getReservation();
+            $user->getPersonne();
+            $manager->persist($user);
+            $manager->flush();
+            return $this->redirectToRoute('user_add');
+        }
+
+        return $this->renderForm("user/add.html.twig", [
+            'animaux' => $animal,
+            'form' => $form
+        ]);
+    }
 
     #[Route('/animaux/add', name:'add_animaux', methods:["GET", "POST"])]
     // #[IsGranted("ROLE_ADMIN", message:"Vous n'avez pas les droits", statusCode:403)]
