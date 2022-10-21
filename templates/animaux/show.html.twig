@@ -15,6 +15,7 @@
             <h6>Genre : {{ animaux.genre }}</h6>
             <h6>Âge : {{ animaux.age }} ans</h6>
             <h6>Description : {{ animaux.description }}</h6>
+            <a class="btn btn-primary" href="{{ path('user_add', {id: animaux.id}) }}" title="réservation">Réserver</a>         
         </div>
         
         {# <div class="span2">
