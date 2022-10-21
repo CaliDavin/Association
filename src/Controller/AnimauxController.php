@@ -11,6 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
@@ -44,8 +45,14 @@ class AnimauxController extends AbstractController
 
 
     #[Route('/animaux/add', name:'add_animaux', methods:["GET", "POST"])]
+    // #[IsGranted("ROLE_ADMIN", message:"Vous n'avez pas les droits", statusCode:403)]
     public function add(Request $request): Response
     {
+        if(!$this->isGranted("ROLE_ADMIN")){
+            $this->addFlash('danger', "Vous devez être admin pour pouvoir ajouter un animal");
+            return$this->redirectToRoute('app_animaux');
+        }
+
         $animaux = new Animal;
         $form = $this->createForm(AnimalType::class, $animaux);
         $form->handleRequest($request);
@@ -83,9 +90,15 @@ class AnimauxController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/update', name:'update', methods:['GET', 'POST'], requirements:['id' => "\d+"])]
+    #[Route('animaux/{id}/update', name:'update', methods:['GET', 'POST'], requirements:['id' => "\d+"])]
+    // #[IsGranted("ROLE_ADMIN", message:"Vous n'avez pas les droits", statusCode:403)]
     public function update(int $id, Request $request, AnimalRepository $animalRepository): Response
     {
+        if(!$this->isGranted("ROLE_ADMIN")){
+            $this->addFlash('danger', "Vous devez être admin pour pouvoir modifier un animal");
+            return$this->redirectToRoute('app_animaux');
+        }
+
         $animaux = $animalRepository->find($id);
         if (!$animaux) {
             $this->addFlash('danger', "L'animal que vous recherchez n'existe pas.");
@@ -126,9 +139,16 @@ class AnimauxController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/delete', name:"delete", requirements:['id' => "\d+"])]
+
+    #[Route('animaux/{id}/delete', name:"delete", requirements:['id' => "\d+"])]
+    // #[IsGranted("ROLE_ADMIN", message:"Vous n'avez pas les droits", statusCode:403)]
     public function delete(int $id, AnimalRepository $animalRepository): Response
     {
+        if(!$this->isGranted("ROLE_ADMIN")){
+            $this->addFlash('danger', "Vous devez être admin pour pouvoir supprimer un animal");
+            return$this->redirectToRoute('app_animaux');
+        }
+
         $animaux = $animalRepository->find($id);
         if ($animaux) {
             $animalRepository->remove($animaux, true);

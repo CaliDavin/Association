@@ -10,9 +10,6 @@
 		{{ form_errors(form.name) }}
 	</div>
 </div>
-{% if is_granted('ROLE_ADMIN') %}
-    {{form_row(form.button, {label:formSubmit|default("Ajouter")})}}
-{% endif %}
-{{form_row(form.photo)}}
-
+<div>{{form_row(form.photo)}}</div>
+{{form_row(form.button, {label:formSubmit|default("Ajouter")})}}
 {{ form_end(form) }}
